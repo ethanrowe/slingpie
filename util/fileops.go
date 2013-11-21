@@ -1,6 +1,7 @@
 package util
 
 import (
+    "compress/gzip"
     "io"
     "os"
     "path/filepath"
@@ -121,6 +122,15 @@ func Tar(src string, w io.Writer) (err error) {
         if err == nil {
             err = out.Close()
         }
+    }
+    return
+}
+
+func TarGz(src string, w io.Writer) (err error) {
+    zipper := gzip.NewWriter(w)
+    err = Tar(src, zipper)
+    if err == nil {
+        err = zipper.Close()
     }
     return
 }

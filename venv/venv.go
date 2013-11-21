@@ -41,7 +41,7 @@ type TransportableVenv interface {
 
 func (v *Venv) Stream(outstream io.Writer) (err error) {
     log.Println("Streaming", v.TargetPath())
-    err = util.Tar(v.TargetPath(), outstream)
+    err = util.TarGz(v.TargetPath(), outstream)
     return
 }
 

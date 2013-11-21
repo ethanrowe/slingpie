@@ -8,7 +8,9 @@ import (
 )
 
 func showHelp() {
-    fmt.Println(`Usage: slingpie path-to-virtualenv > your.tar.gz
+    fmt.Printf(`Usage: slingpie path-to-virtualenv > your.tar.gz
+
+Slingpie version v%s
 
 Streams to stdout a gzipped tar archive of the specified python
 virtualenv, the contents of which having been wrapped in such a manner
@@ -30,15 +32,15 @@ The transportable virtualenv does not need to be activated to work properly.
 Example usage:
 
   # Create a virtualenv
-  % virtualenv some-python
+  virtualenv some-python
   # Pack it up
-  % slingpie some-python > some-python.tar.gz
+  slingpie some-python > some-python.tar.gz
   # Put the transportable one at "transportable"
-  % mkdir transportable
-  % (cd transportable; tar xzf ../some-python.tar.gz)
+  mkdir transportable
+  (cd transportable; tar xzf ../some-python.tar.gz)
   # Invoke the python in your transportable one.
-  % transportable/bin/python
-`)
+  transportable/bin/python
+`, releaseVersion)
 }
 
 func main() {

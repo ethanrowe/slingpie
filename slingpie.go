@@ -51,7 +51,9 @@ func main() {
             err = src.Construct()
             if err == nil {
                 err = src.Stream(os.Stdout)
-                // src.Destroy()
+                if err == nil {
+                    src.Destroy()
+                }
             }
         }
         if err != nil {

@@ -29,6 +29,7 @@ func (v *Venv) String() string {
 }
 
 func (v *Venv) Destroy() error {
+    log.Println("Cleaning up", v.Target)
     return os.RemoveAll(v.Target)
 }
 

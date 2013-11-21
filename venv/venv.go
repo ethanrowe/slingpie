@@ -101,10 +101,18 @@ func (v *VenvTwoSix) HandleLib() error {
 }
 
 func (v *VenvTwoSix) HandleMan() error {
-    log.Println("Handling man")
-    return util.CpRecursive(
-        v.SourcePath("man"),
-        v.TargetPath("man"))
+    srcPath := v.SourcePath("man")
+    _, err := os.Stat(srcPath)
+    if err == nil {
+        log.Println("Handling man")
+        return util.CpRecursive(
+            srcPath,
+            v.TargetPath("man"))
+    } else if os.IsNotExist(err) {
+        log.Println("Skipping man")
+        return nil
+    }
+    return err
 }
 
 func (v *VenvTwoSix) HandleBin() (err error) {

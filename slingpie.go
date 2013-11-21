@@ -18,7 +18,7 @@ func main() {
         if err == nil {
             err = src.Construct()
             if err == nil {
-                venv.Stream(src)
+                err = src.Stream(os.Stdout)
                 // src.Destroy()
             }
         }

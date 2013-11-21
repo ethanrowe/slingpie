@@ -2,6 +2,7 @@ package venv
 
 import (
     "fmt"
+    "io"
     "io/ioutil"
     "log"
     "os"
@@ -34,12 +35,14 @@ func (v *Venv) Destroy() error {
 type TransportableVenv interface {
     Construct() error
     Destroy() error
+    Stream(io.Writer) error
     fmt.Stringer
 }
 
-func Stream(transp TransportableVenv) error {
-    log.Println("Streaming", transp)
-    return nil
+func (v *Venv) Stream(outstream io.Writer) (err error) {
+    log.Println("Streaming", v.TargetPath())
+    err = util.Tar(v.TargetPath(), outstream)
+    return
 }
 
 func buildPath(root string, paths []string) string {
